@@ -8,302 +8,78 @@
 <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper: #EFE8D8;
-    --paper-raised: #F6F1E4;
-    --ink: #2B2620;
-    --ink-soft: #6B6152;
-    --rule: #C9BFA0;
-    --rule-strong: #A89A76;
-
-    --advent: #4B3B6B;
-    --christmas: #A8862F;
-    --lent: #5B3A52;
-    --easter: #C99A1E;
-    --pentecost: #8C2F2F;
-    --ordinary: #3F6B4A;
-    --general: #8A7A5C;
+    --accent:#1F3A5F; /* theme color: change this one line to re-theme the page */
+    --paper:#EFE8D8; --paper-raised:#F6F1E4;
+    --ink:#2B2620; --ink-soft:#6B6152;
+    --rule:#C9BFA0; --rule-strong:#A89A76;
+    --advent:#4C3C8C; --christmas:#C9A227; --epiphany:#6BAF6B; --lent:#6A2C91;
+    --holyweek:#8B1A1A; --easter:#E9C46A; --pentecost:#C62828; --ordinary:#2E7D4F; --general:#8A7A5C;
   }
   *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Work Sans', sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap{
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 32px 20px 80px;
-  }
-  header{
-    text-align:center;
-    margin-bottom: 20px;
-    position: relative;
-  }
-  header h1{
-    font-family:'Spectral', serif;
-    font-weight:600;
-    font-size: 2.1rem;
-    margin: 0 0 4px;
-    letter-spacing: 0.3px;
-  }
-  header p{
-    margin:0;
-    color:var(--ink-soft);
-    font-size: 0.92rem;
-  }
-  .settings-btn{
-    position:absolute;
-    top:0; right:0;
-    background:none;
-    color: var(--ink-soft);
-    font-size: 0.78rem;
-    text-decoration: underline;
-    padding: 4px;
-  }
-  .staff{
-    height: 14px;
-    margin: 22px auto 26px;
-    max-width: 340px;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      var(--rule) 0px, var(--rule) 1px,
-      transparent 1px, transparent 4px
-    );
-  }
-
-  .controls{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    margin-bottom: 22px;
-  }
-  .search-row{
-    display:flex;
-    gap:10px;
-  }
-  input[type="text"], input[type="url"], textarea, select{
-    font-family:'Work Sans', sans-serif;
-    font-size: 0.92rem;
-    background: var(--paper-raised);
-    border: 1px solid var(--rule);
-    border-radius: 3px;
-    padding: 9px 11px;
-    color: var(--ink);
-    width:100%;
-  }
-  input:focus, textarea:focus, select:focus{
-    outline: 2px solid var(--rule-strong);
-    outline-offset: 1px;
-  }
-  .search-row input{ flex:1; }
-  button{
-    font-family:'Work Sans', sans-serif;
-    cursor:pointer;
-    border:none;
-    border-radius:3px;
-  }
-  .btn-add{
-    background: var(--ink);
-    color: var(--paper-raised);
-    padding: 9px 16px;
-    font-size:0.88rem;
-    font-weight:500;
-    white-space:nowrap;
-  }
-  .btn-add:hover{ opacity:0.88; }
-  .btn-add:disabled{ opacity:0.5; cursor:default; }
-
-  .chip-rows{ display:flex; flex-direction:column; gap:8px; }
-  .chip-row{ display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
-  .chip-row .label{
-    font-size:0.72rem;
-    color: var(--ink-soft);
-    width: 52px;
-    flex-shrink:0;
-  }
-  .chip{
-    font-size: 0.8rem;
-    padding: 5px 11px;
-    border-radius: 20px;
-    border: 1px solid var(--rule-strong);
-    background: transparent;
-    color: var(--ink);
-  }
-  .chip.active{
-    background: var(--ink);
-    color: var(--paper-raised);
-    border-color: var(--ink);
-  }
-
-  .season-group{ margin-bottom: 6px; }
-  .season-head{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin: 26px 0 10px;
-  }
-  .season-dot{
-    width:9px; height:9px; border-radius:50%;
-    flex-shrink:0;
-  }
-  .season-head h2{
-    font-family:'Spectral', serif;
-    font-weight:600;
-    font-size: 1.05rem;
-    margin:0;
-  }
-  .season-head .count{
-    font-size:0.78rem;
-    color: var(--ink-soft);
-  }
-  .season-rule{
-    flex:1;
-    height:1px;
-    background: var(--rule);
-  }
-
-  .song-row{
-    display:flex;
-    align-items:flex-start;
-    gap:12px;
-    padding: 12px 4px 12px 12px;
-    border-bottom: 1px solid var(--rule);
-    border-left: 3px solid transparent;
-  }
-  .song-row .main{ flex:1; min-width:0; }
-  .song-title{
-    font-family:'Spectral', serif;
-    font-weight:600;
-    font-size: 1.02rem;
-    margin: 0 0 3px;
-  }
-  .song-meta{
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    align-items:center;
-  }
-  .song-meta .type-tag{
-    text-transform: lowercase;
-  }
-  .song-links{ margin-top:6px; display:flex; gap:14px; flex-wrap:wrap; }
-  .song-links a{
-    font-size: 0.8rem;
-    color: var(--ink);
-    text-decoration: underline;
-    text-decoration-color: var(--rule-strong);
-    text-underline-offset: 2px;
-  }
-  .song-notes{
-    font-size:0.82rem;
-    color: var(--ink-soft);
-    margin-top:5px;
-    font-style: italic;
-  }
-  .row-actions{
-    display:flex;
-    gap:8px;
-    flex-shrink:0;
-  }
-  .icon-btn{
-    background:none;
-    color: var(--ink-soft);
-    font-size: 0.78rem;
-    padding: 3px 6px;
-    text-decoration: underline;
-  }
-  .icon-btn:hover{ color: var(--ink); }
-
-  .empty-state{
-    text-align:center;
-    padding: 50px 20px;
-    color: var(--ink-soft);
-  }
-  .empty-state p{ margin: 4px 0; font-size: 0.9rem; }
-
-  .overlay{
-    position:fixed; inset:0;
-    background: rgba(43,38,32,0.45);
-    display:flex; align-items:flex-start; justify-content:center;
-    padding: 40px 16px;
-    overflow-y:auto;
-    z-index: 10;
-  }
-  .overlay.hidden{ display:none; }
-  .panel{
-    background: var(--paper-raised);
-    border-radius: 4px;
-    max-width: 460px;
-    width:100%;
-    padding: 26px 24px 24px;
-  }
-  .panel h3{
-    font-family:'Spectral', serif;
-    margin: 0 0 16px;
-    font-size: 1.2rem;
-  }
-  .panel p.hint{
-    font-size: 0.82rem;
-    color: var(--ink-soft);
-    margin: -8px 0 16px;
-  }
-  .field{ margin-bottom: 14px; }
-  .field label{
-    display:block;
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-    margin-bottom: 4px;
-  }
-  .field-row{ display:flex; gap:10px; }
-  .field-row .field{ flex:1; }
-  .panel-actions{
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-    margin-top: 18px;
-  }
-  .btn-secondary{
-    background: transparent;
-    color: var(--ink-soft);
-    padding: 9px 14px;
-    font-size: 0.86rem;
-  }
-  .btn-secondary:hover{ color: var(--ink); }
-
-  .toast{
-    position: fixed;
-    bottom: 22px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--ink);
-    color: var(--paper-raised);
-    padding: 10px 18px;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    opacity: 0;
-    pointer-events:none;
-    transition: opacity 0.25s ease;
-    max-width: 90vw;
-    text-align:center;
-  }
-  .toast.show{ opacity:1; }
-  .toast.error{ background: var(--pentecost); }
-
-  .loading-note{
-    text-align:center;
-    color: var(--ink-soft);
-    font-size: 0.85rem;
-    padding: 30px 20px;
-  }
-
-  @media (max-width: 480px){
-    .field-row{ flex-direction:column; }
-    .chip-row .label{ width:auto; }
-  }
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Work Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:780px;margin:0 auto;padding:32px 20px 80px;}
+  header{text-align:center;margin-bottom:20px;position:relative;}
+  header h1{font-family:'Spectral',serif;font-weight:600;font-size:2.1rem;margin:0 0 4px;color:var(--accent);}
+  header p{margin:0;color:var(--ink-soft);font-size:.92rem;}
+  .settings-btn{position:absolute;top:0;right:0;background:none;color:var(--ink-soft);font-size:.78rem;text-decoration:underline;padding:4px;}
+  .staff{height:14px;margin:22px auto 26px;max-width:340px;background-image:repeating-linear-gradient(to bottom,var(--accent) 0,var(--accent) 1px,transparent 1px,transparent 4px);opacity:.55;}
+  .controls{display:flex;flex-direction:column;gap:12px;margin-bottom:22px;}
+  .search-row{display:flex;gap:10px;}
+  input[type="text"],input[type="url"],textarea,select{font-family:inherit;font-size:.92rem;background:var(--paper-raised);border:1px solid var(--rule);border-radius:3px;padding:9px 11px;color:var(--ink);width:100%;}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .search-row input{flex:1;}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:3px;}
+  .btn-add{background:var(--accent);color:#fff;padding:9px 16px;font-size:.88rem;font-weight:500;white-space:nowrap;}
+  .btn-add:hover{opacity:.88;} .btn-add:disabled{opacity:.5;cursor:default;}
+  .chip-rows{display:flex;flex-direction:column;gap:8px;}
+  .chip-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+  .chip-row .label{font-size:.72rem;color:var(--ink-soft);width:60px;flex-shrink:0;}
+  .chip{font-size:.8rem;padding:5px 11px;border-radius:20px;border:1px solid var(--rule-strong);background:transparent;color:var(--ink);}
+  .chip.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .season-head{display:flex;align-items:center;gap:10px;margin:26px 0 10px;}
+  .season-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .season-head h2{font-family:'Spectral',serif;font-weight:600;font-size:1.05rem;margin:0;}
+  .season-head .count{font-size:.78rem;color:var(--ink-soft);}
+  .season-rule{flex:1;height:1px;background:var(--rule);}
+  .song-row{display:flex;align-items:flex-start;gap:12px;padding:12px 4px 12px 12px;border-bottom:1px solid var(--rule);border-left:4px solid transparent;}
+  .song-row .main{flex:1;min-width:0;}
+  .song-title{font-family:'Spectral',serif;font-weight:600;font-size:1.02rem;margin:0 0 4px;}
+  .song-meta{font-size:.78rem;color:var(--ink-soft);display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .type-tag{text-transform:lowercase;}
+  .badge{display:inline-flex;align-items:center;gap:4px;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:10px;letter-spacing:.3px;}
+  .badge.staff-b{background:#161616;color:#fff;}
+  .badge.staff-b svg{width:14px;height:10px;}
+  .badge.solfa-b{background:#fff;border:1px solid var(--rule-strong);font-family:'Spectral',serif;font-size:.8rem;}
+  .song-links{margin-top:7px;display:flex;gap:8px;flex-wrap:wrap;}
+  .song-links a{font-size:.8rem;color:var(--accent);text-decoration:none;border:1px solid var(--accent);border-radius:3px;padding:3px 10px;}
+  .song-links a:hover{background:var(--accent);color:#fff;}
+  .song-notes{font-size:.82rem;color:var(--ink-soft);margin-top:5px;font-style:italic;}
+  .row-actions{display:flex;gap:8px;flex-shrink:0;}
+  .icon-btn{background:none;color:var(--ink-soft);font-size:.78rem;padding:3px 6px;text-decoration:underline;}
+  .icon-btn:hover{color:var(--ink);}
+  .empty-state{text-align:center;padding:50px 20px;color:var(--ink-soft);font-size:.9rem;}
+  .overlay{position:fixed;inset:0;background:rgba(43,38,32,.5);display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;z-index:10;}
+  .overlay.hidden{display:none;}
+  .panel{background:var(--paper-raised);border-radius:4px;max-width:460px;width:100%;padding:26px 24px 24px;}
+  .panel h3{font-family:'Spectral',serif;margin:0 0 16px;font-size:1.2rem;}
+  .panel p.hint{font-size:.82rem;color:var(--ink-soft);margin:-8px 0 16px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:.78rem;color:var(--ink-soft);margin-bottom:4px;}
+  .field-row{display:flex;gap:10px;} .field-row .field{flex:1;}
+  .panel-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;}
+  .btn-secondary{background:transparent;color:var(--ink-soft);padding:9px 14px;font-size:.86rem;}
+  .btn-secondary:hover{color:var(--ink);}
+  .panel.viewer{max-width:860px;padding:16px;}
+  .v-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;}
+  .v-head h3{margin:0;font-size:1.05rem;}
+  #vFrame{width:100%;height:68vh;border:1px solid var(--rule);background:#fff;border-radius:3px;}
+  .v-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
+  .v-actions a{background:var(--accent);color:#fff;text-decoration:none;font-size:.85rem;padding:8px 14px;border-radius:3px;}
+  .v-actions a.alt{background:transparent;color:var(--accent);border:1px solid var(--accent);}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:4px;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .25s;max-width:90vw;text-align:center;z-index:20;}
+  .toast.show{opacity:1;} .toast.error{background:var(--pentecost);}
+  .loading-note{text-align:center;color:var(--ink-soft);font-size:.85rem;padding:30px 20px;}
+  @media (max-width:480px){.field-row{flex-direction:column;} .chip-row .label{width:auto;} .overlay{padding:16px 8px;}}
 </style>
 </head>
 <body>
@@ -314,22 +90,17 @@
     <p>Choir, solo &amp; instrumental music by season</p>
   </header>
   <div class="staff"></div>
-
   <div class="controls">
     <div class="search-row">
       <input type="text" id="searchInput" placeholder="Search by song title...">
       <button class="btn-add" id="addBtn">+ Add Song</button>
     </div>
     <div class="chip-rows">
-      <div class="chip-row" id="seasonChips">
-        <span class="label">Season</span>
-      </div>
-      <div class="chip-row" id="typeChips">
-        <span class="label">Type</span>
-      </div>
+      <div class="chip-row" id="seasonChips"><span class="label">Season</span></div>
+      <div class="chip-row" id="typeChips"><span class="label">Type</span></div>
+      <div class="chip-row" id="notationChips"><span class="label">Notation</span></div>
     </div>
   </div>
-
   <div id="listContainer"><div class="loading-note">Loading songs...</div></div>
 </div>
 
@@ -338,32 +109,15 @@
     <h3 id="panelTitle">Add a song</h3>
     <form id="songForm">
       <input type="hidden" id="editId">
-      <div class="field">
-        <label for="titleInput">Song title</label>
-        <input type="text" id="titleInput" required>
-      </div>
+      <div class="field"><label for="titleInput">Song title</label><input type="text" id="titleInput" required></div>
       <div class="field-row">
-        <div class="field">
-          <label for="seasonInput">Season</label>
-          <select id="seasonInput"></select>
-        </div>
-        <div class="field">
-          <label for="typeInput">Type</label>
-          <select id="typeInput"></select>
-        </div>
+        <div class="field"><label for="seasonInput">Season</label><select id="seasonInput"></select></div>
+        <div class="field"><label for="typeInput">Type</label><select id="typeInput"></select></div>
       </div>
-      <div class="field">
-        <label for="pdfInput">Sheet music / PDF link</label>
-        <input type="url" id="pdfInput" placeholder="https://drive.google.com/...">
-      </div>
-      <div class="field">
-        <label for="audioInput">Audio link</label>
-        <input type="url" id="audioInput" placeholder="https://drive.google.com/...">
-      </div>
-      <div class="field">
-        <label for="notesInput">Notes (key, arranger, occasion...)</label>
-        <textarea id="notesInput" rows="2"></textarea>
-      </div>
+      <div class="field"><label for="notationInput">Notation</label><select id="notationInput"></select></div>
+      <div class="field"><label for="pdfInput">Sheet music / PDF link</label><input type="url" id="pdfInput" placeholder="https://drive.google.com/..."></div>
+      <div class="field"><label for="audioInput">Audio link</label><input type="url" id="audioInput" placeholder="https://drive.google.com/..."></div>
+      <div class="field"><label for="notesInput">Notes (key, arranger, occasion...)</label><textarea id="notesInput" rows="2"></textarea></div>
       <div class="panel-actions">
         <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
         <button type="submit" class="btn-add" id="saveBtn">Save song</button>
@@ -372,15 +126,23 @@
   </div>
 </div>
 
+<div class="overlay hidden" id="viewer">
+  <div class="panel viewer">
+    <div class="v-head"><h3 id="vTitle"></h3><button class="btn-secondary" id="vClose">Close</button></div>
+    <iframe id="vFrame" allow="autoplay" title="Viewer"></iframe>
+    <div class="v-actions">
+      <a id="vOpen" target="_blank" rel="noopener">Open in new tab</a>
+      <a id="vDl" class="alt" target="_blank" rel="noopener">Download</a>
+    </div>
+  </div>
+</div>
+
 <div class="overlay hidden" id="settingsOverlay">
   <div class="panel">
     <h3>Connect your data source</h3>
     <p class="hint">Paste the Web app URL from your Google Apps Script deployment. This is stored only in this browser.</p>
     <form id="settingsForm">
-      <div class="field">
-        <label for="scriptUrlInput">Web app URL</label>
-        <input type="url" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/.../exec" required>
-      </div>
+      <div class="field"><label for="scriptUrlInput">Web app URL</label><input type="url" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/.../exec" required></div>
       <div class="panel-actions">
         <button type="button" class="btn-secondary" id="settingsCancelBtn">Cancel</button>
         <button type="submit" class="btn-add">Save</button>
@@ -388,41 +150,36 @@
     </form>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
 const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx5M9INIPupuNgnoOoM_L9YaKZGP4CpFvY5HYz6Emva_3ICVa3H6JFdrGDlre3QpPVY/exec';
 
 const SEASONS = [
-  { id: 'advent', label: 'Advent', color: 'var(--advent)' },
-  { id: 'christmas', label: 'Christmas', color: 'var(--christmas)' },
-  { id: 'lent', label: 'Lent', color: 'var(--lent)' },
-  { id: 'easter', label: 'Easter', color: 'var(--easter)' },
-  { id: 'pentecost', label: 'Pentecost', color: 'var(--pentecost)' },
-  { id: 'ordinary', label: 'Ordinary Time', color: 'var(--ordinary)' },
-  { id: 'general', label: 'Any Time', color: 'var(--general)' },
+  { id:'advent', label:'Advent', color:'var(--advent)' },
+  { id:'christmas', label:'Christmas', color:'var(--christmas)' },
+  { id:'epiphany', label:'Epiphany', color:'var(--epiphany)' },
+  { id:'lent', label:'Lent', color:'var(--lent)' },
+  { id:'holyweek', label:'Holy Week', color:'var(--holyweek)' },
+  { id:'easter', label:'Easter', color:'var(--easter)' },
+  { id:'pentecost', label:'Pentecost', color:'var(--pentecost)' },
+  { id:'ordinary', label:'Ordinary Time', color:'var(--ordinary)' },
+  { id:'general', label:'Any Time', color:'var(--general)' },
 ];
 const TYPES = ['Choir', 'Solo', 'Instrumental'];
+const NOTATIONS = ['Staff', 'Tonic sol-fa'];
 
 let entries = [];
-let activeSeason = 'all';
-let activeType = 'all';
+const f = { season:'all', type:'all', notation:'all' };
 let searchTerm = '';
 
-function getScriptUrl(){
-  return localStorage.getItem('musicLibraryScriptUrl') || DEFAULT_SCRIPT_URL;
-}
-function setScriptUrl(url){
-  localStorage.setItem('musicLibraryScriptUrl', url);
-}
-
-function seasonInfo(id){
-  return SEASONS.find(s => s.id === id) || SEASONS[SEASONS.length - 1];
-}
+const getScriptUrl = () => localStorage.getItem('musicLibraryScriptUrl') || DEFAULT_SCRIPT_URL;
+const setScriptUrl = (u) => localStorage.setItem('musicLibraryScriptUrl', u);
+const seasonInfo = (id) => SEASONS.find(s => s.id === id) || SEASONS[SEASONS.length - 1];
+const $ = (id) => document.getElementById(id);
 
 function showToast(msg, isError){
-  const t = document.getElementById('toast');
+  const t = $('toast');
   t.textContent = msg;
   t.classList.toggle('error', !!isError);
   t.classList.add('show');
@@ -430,15 +187,14 @@ function showToast(msg, isError){
 }
 
 async function apiGet(){
-  const res = await fetch(getScriptUrl(), { method: 'GET' });
+  const res = await fetch(getScriptUrl());
   if (!res.ok) throw new Error('Network error');
   return res.json();
 }
-
 async function apiPost(payload){
   const res = await fetch(getScriptUrl(), {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    method:'POST',
+    headers:{ 'Content-Type':'text/plain;charset=utf-8' },
     body: JSON.stringify(payload)
   });
   if (!res.ok) throw new Error('Network error');
@@ -446,147 +202,140 @@ async function apiPost(payload){
 }
 
 async function loadEntries(){
-  const container = document.getElementById('listContainer');
   try{
     const data = await apiGet();
     entries = Array.isArray(data) ? data : [];
     render();
   }catch(err){
-    container.innerHTML = '<div class="loading-note">Couldn\'t load the library. Check the connection in Settings.</div>';
+    $('listContainer').innerHTML = '<div class="loading-note">Couldn\'t load the library. Check the connection in Settings.</div>';
   }
 }
 
+/* ---------- filter chips ---------- */
+const CHIP_ROWS = [
+  { key:'season', el:'seasonChips', items: SEASONS.map(s => [s.label, s.id]) },
+  { key:'type', el:'typeChips', items: TYPES.map(t => [t, t]) },
+  { key:'notation', el:'notationChips', items: NOTATIONS.map(n => [n, n]) },
+];
 function buildChips(){
-  const seasonRow = document.getElementById('seasonChips');
-  seasonRow.appendChild(chipEl('All', 'all', activeSeason, (v) => { activeSeason = v; render(); }));
-  SEASONS.forEach(s => {
-    seasonRow.appendChild(chipEl(s.label, s.id, activeSeason, (v) => { activeSeason = v; render(); }));
-  });
-
-  const typeRow = document.getElementById('typeChips');
-  typeRow.appendChild(chipEl('All', 'all', activeType, (v) => { activeType = v; render(); }));
-  TYPES.forEach(t => {
-    typeRow.appendChild(chipEl(t, t, activeType, (v) => { activeType = v; render(); }));
+  CHIP_ROWS.forEach(row => {
+    [['All','all'], ...row.items].forEach(([label, value]) => {
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.type = 'button';
+      b.textContent = label;
+      b.dataset.value = value;
+      b.addEventListener('click', () => { f[row.key] = value; render(); });
+      $(row.el).appendChild(b);
+    });
   });
 }
-
-function chipEl(label, value, current, onClick){
-  const b = document.createElement('button');
-  b.className = 'chip' + (value === current ? ' active' : '');
-  b.textContent = label;
-  b.type = 'button';
-  b.addEventListener('click', () => onClick(value));
-  return b;
-}
-
 function refreshChipStates(){
-  document.querySelectorAll('#seasonChips .chip').forEach((b, i) => {
-    const val = i === 0 ? 'all' : SEASONS[i-1].id;
-    b.classList.toggle('active', val === activeSeason);
-  });
-  document.querySelectorAll('#typeChips .chip').forEach((b, i) => {
-    const val = i === 0 ? 'all' : TYPES[i-1];
-    b.classList.toggle('active', val === activeType);
+  CHIP_ROWS.forEach(row => {
+    $(row.el).querySelectorAll('.chip').forEach(b => b.classList.toggle('active', b.dataset.value === f[row.key]));
   });
 }
 
+/* ---------- list ---------- */
 function render(){
   refreshChipStates();
-  const container = document.getElementById('listContainer');
+  const container = $('listContainer');
   container.innerHTML = '';
-
   const term = searchTerm.trim().toLowerCase();
-  let filtered = entries.filter(e => {
-    if (activeSeason !== 'all' && e.season !== activeSeason) return false;
-    if (activeType !== 'all' && e.type !== activeType) return false;
+  const filtered = entries.filter(e => {
+    if (f.season !== 'all' && e.season !== f.season) return false;
+    if (f.type !== 'all' && e.type !== f.type) return false;
+    if (f.notation !== 'all' && e.notation !== f.notation) return false;
     if (term && !(e.title || '').toLowerCase().includes(term)) return false;
     return true;
   });
-
-  if (filtered.length === 0){
+  if (!filtered.length){
     const empty = document.createElement('div');
     empty.className = 'empty-state';
-    empty.innerHTML = entries.length === 0
-      ? '<p>No songs yet.</p><p>Add the first one for the department.</p>'
-      : '<p>Nothing matches those filters.</p>';
+    empty.innerHTML = entries.length ? '<p>Nothing matches those filters.</p>' : '<p>No songs yet.</p><p>Add the first one for the department.</p>';
     container.appendChild(empty);
     return;
   }
-
-  const orderedSeasonIds = SEASONS.map(s => s.id);
   const grouped = {};
-  filtered.forEach(e => {
-    if (!grouped[e.season]) grouped[e.season] = [];
-    grouped[e.season].push(e);
+  filtered.forEach(e => { (grouped[e.season] = grouped[e.season] || []).push(e); });
+  SEASONS.forEach(s => {
+    const list = grouped[s.id];
+    if (!list || !list.length) return;
+    const group = document.createElement('div');
+    group.innerHTML = `<div class="season-head"><span class="season-dot" style="background:${s.color}"></span><h2>${s.label}</h2><span class="season-rule"></span><span class="count">${list.length}</span></div>`;
+    list.sort((a,b) => (a.title||'').localeCompare(b.title||''))
+        .forEach(e => group.appendChild(songRow(e, s)));
+    container.appendChild(group);
   });
+}
 
-  orderedSeasonIds.forEach(sid => {
-    if (!grouped[sid] || grouped[sid].length === 0) return;
-    const info = seasonInfo(sid);
-    const groupEl = document.createElement('div');
-    groupEl.className = 'season-group';
-
-    const head = document.createElement('div');
-    head.className = 'season-head';
-    head.innerHTML = `
-      <span class="season-dot" style="background:${info.color}"></span>
-      <h2>${info.label}</h2>
-      <span class="season-rule"></span>
-      <span class="count">${grouped[sid].length}</span>
-    `;
-    groupEl.appendChild(head);
-
-    grouped[sid]
-      .sort((a,b) => (a.title||'').localeCompare(b.title||''))
-      .forEach(e => groupEl.appendChild(songRow(e, info)));
-
-    container.appendChild(groupEl);
-  });
+function notationBadge(n){
+  if (n === 'Staff'){
+    return '<span class="badge staff-b" title="Staff notation"><svg viewBox="0 0 14 10" aria-hidden="true"><g stroke="#fff" stroke-width="1"><path d="M0 1h14M0 3h14M0 5h14M0 7h14M0 9h14"/></g></svg>Staff</span>';
+  }
+  if (n === 'Tonic sol-fa'){
+    return '<span class="badge solfa-b" title="Tonic sol-fa"><b style="color:#D62828">d</b><b style="color:#E8890C">r</b><b style="color:#2E9E4F">m</b></span>';
+  }
+  return '';
 }
 
 function songRow(entry, info){
   const row = document.createElement('div');
   row.className = 'song-row';
   row.style.borderLeftColor = info.color;
-
   const links = [];
-  if (entry.pdfUrl) links.push(`<a href="${escapeAttr(entry.pdfUrl)}" target="_blank" rel="noopener">PDF</a>`);
-  if (entry.audioUrl) links.push(`<a href="${escapeAttr(entry.audioUrl)}" target="_blank" rel="noopener">Audio</a>`);
-
+  if (entry.pdfUrl) links.push(`<a href="${escapeAttr(entry.pdfUrl)}" data-view="pdf" target="_blank" rel="noopener">View PDF</a>`);
+  if (entry.audioUrl) links.push(`<a href="${escapeAttr(entry.audioUrl)}" data-view="audio" target="_blank" rel="noopener">Play audio</a>`);
   row.innerHTML = `
     <div class="main">
       <p class="song-title">${escapeHtml(entry.title)}</p>
-      <div class="song-meta">
-        <span class="type-tag">${escapeHtml(entry.type)}</span>
-      </div>
+      <div class="song-meta"><span class="type-tag">${escapeHtml(entry.type)}</span>${notationBadge(entry.notation)}</div>
       ${links.length ? `<div class="song-links">${links.join('')}</div>` : ''}
       ${entry.notes ? `<p class="song-notes">${escapeHtml(entry.notes)}</p>` : ''}
     </div>
     <div class="row-actions">
       <button class="icon-btn" data-action="edit">Edit</button>
       <button class="icon-btn" data-action="delete">Delete</button>
-    </div>
-  `;
-
+    </div>`;
+  row.querySelectorAll('[data-view]').forEach(a => {
+    a.addEventListener('click', (ev) => {
+      if (openViewer(a.getAttribute('href'), entry.title + (a.dataset.view === 'audio' ? ' (audio)' : ''))) ev.preventDefault();
+    });
+  });
   row.querySelector('[data-action="edit"]').addEventListener('click', () => openPanel(entry));
   row.querySelector('[data-action="delete"]').addEventListener('click', () => deleteEntry(entry.id));
-
   return row;
 }
 
-function escapeHtml(str){
-  const d = document.createElement('div');
-  d.textContent = str || '';
-  return d.innerHTML;
+function escapeHtml(str){ const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
+function escapeAttr(str){ return (str || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;'); }
+
+/* ---------- pop-up viewer ---------- */
+function driveId(url){
+  const m = (url || '').match(/\/d\/([\w-]+)/) || (url || '').match(/[?&]id=([\w-]+)/);
+  return m ? m[1] : null;
 }
-function escapeAttr(str){
-  return (str || '').replace(/"/g, '&quot;');
+// returns true if the pop-up handled it (Google Drive links); false = let the link open normally
+function openViewer(url, title){
+  const id = driveId(url);
+  if (!id) return false;
+  $('vTitle').textContent = title;
+  $('vFrame').src = 'https://drive.google.com/file/d/' + id + '/preview';
+  $('vOpen').href = 'https://drive.google.com/file/d/' + id + '/view';
+  $('vDl').href = 'https://drive.google.com/uc?export=download&id=' + id;
+  $('viewer').classList.remove('hidden');
+  return true;
+}
+function closeViewer(){
+  $('viewer').classList.add('hidden');
+  $('vFrame').src = 'about:blank'; // stops audio
 }
 
+/* ---------- add / edit / delete ---------- */
 async function deleteEntry(id){
   if (!confirm('Delete this song from the library?')) return;
   try{
-    await apiPost({ action: 'delete', id: id });
+    await apiPost({ action:'delete', id });
     entries = entries.filter(e => e.id !== id);
     render();
     showToast('Song deleted');
@@ -596,55 +345,53 @@ async function deleteEntry(id){
 }
 
 function populateSelects(){
-  const seasonSelect = document.getElementById('seasonInput');
-  seasonSelect.innerHTML = SEASONS.map(s => `<option value="${s.id}">${s.label}</option>`).join('');
-  const typeSelect = document.getElementById('typeInput');
-  typeSelect.innerHTML = TYPES.map(t => `<option value="${t}">${t}</option>`).join('');
+  $('seasonInput').innerHTML = SEASONS.map(s => `<option value="${s.id}">${s.label}</option>`).join('');
+  $('typeInput').innerHTML = TYPES.map(t => `<option value="${t}">${t}</option>`).join('');
+  $('notationInput').innerHTML = '<option value="">Not set</option>' + NOTATIONS.map(n => `<option value="${n}">${n}</option>`).join('');
 }
 
 function openPanel(entry){
-  document.getElementById('panelTitle').textContent = entry ? 'Edit song' : 'Add a song';
-  document.getElementById('editId').value = entry ? entry.id : '';
-  document.getElementById('titleInput').value = entry ? entry.title : '';
-  document.getElementById('seasonInput').value = entry ? entry.season : SEASONS[0].id;
-  document.getElementById('typeInput').value = entry ? entry.type : TYPES[0];
-  document.getElementById('pdfInput').value = entry ? (entry.pdfUrl || '') : '';
-  document.getElementById('audioInput').value = entry ? (entry.audioUrl || '') : '';
-  document.getElementById('notesInput').value = entry ? (entry.notes || '') : '';
-  document.getElementById('overlay').classList.remove('hidden');
-  document.getElementById('titleInput').focus();
+  $('panelTitle').textContent = entry ? 'Edit song' : 'Add a song';
+  $('editId').value = entry ? entry.id : '';
+  $('titleInput').value = entry ? entry.title : '';
+  $('seasonInput').value = entry ? entry.season : SEASONS[0].id;
+  $('typeInput').value = entry ? entry.type : TYPES[0];
+  $('notationInput').value = entry ? (entry.notation || '') : '';
+  $('pdfInput').value = entry ? (entry.pdfUrl || '') : '';
+  $('audioInput').value = entry ? (entry.audioUrl || '') : '';
+  $('notesInput').value = entry ? (entry.notes || '') : '';
+  $('overlay').classList.remove('hidden');
+  $('titleInput').focus();
 }
-
 function closePanel(){
-  document.getElementById('overlay').classList.add('hidden');
-  document.getElementById('songForm').reset();
+  $('overlay').classList.add('hidden');
+  $('songForm').reset();
 }
 
 async function handleSubmit(e){
   e.preventDefault();
-  const id = document.getElementById('editId').value;
+  const id = $('editId').value;
   const data = {
-    title: document.getElementById('titleInput').value.trim(),
-    season: document.getElementById('seasonInput').value,
-    type: document.getElementById('typeInput').value,
-    pdfUrl: document.getElementById('pdfInput').value.trim(),
-    audioUrl: document.getElementById('audioInput').value.trim(),
-    notes: document.getElementById('notesInput').value.trim(),
+    title: $('titleInput').value.trim(),
+    season: $('seasonInput').value,
+    type: $('typeInput').value,
+    notation: $('notationInput').value,
+    pdfUrl: $('pdfInput').value.trim(),
+    audioUrl: $('audioInput').value.trim(),
+    notes: $('notesInput').value.trim(),
   };
   if (!data.title) return;
-
-  const saveBtn = document.getElementById('saveBtn');
+  const saveBtn = $('saveBtn');
   saveBtn.disabled = true;
   saveBtn.textContent = 'Saving...';
-
   try{
     if (id){
-      await apiPost({ action: 'update', id: id, ...data });
+      await apiPost({ action:'update', id, ...data });
       const idx = entries.findIndex(en => String(en.id) === String(id));
       if (idx !== -1) entries[idx] = { ...entries[idx], ...data };
       showToast('Song updated');
     } else {
-      const result = await apiPost({ action: 'add', ...data });
+      const result = await apiPost({ action:'add', ...data });
       entries.push({ id: result.id, ...data });
       showToast('Song added');
     }
@@ -658,33 +405,28 @@ async function handleSubmit(e){
   }
 }
 
-document.getElementById('addBtn').addEventListener('click', () => openPanel(null));
-document.getElementById('cancelBtn').addEventListener('click', closePanel);
-document.getElementById('overlay').addEventListener('click', (e) => {
-  if (e.target.id === 'overlay') closePanel();
-});
-document.getElementById('songForm').addEventListener('submit', handleSubmit);
-document.getElementById('searchInput').addEventListener('input', (e) => {
-  searchTerm = e.target.value;
-  render();
-});
+/* ---------- events ---------- */
+$('addBtn').addEventListener('click', () => openPanel(null));
+$('cancelBtn').addEventListener('click', closePanel);
+$('overlay').addEventListener('click', (e) => { if (e.target.id === 'overlay') closePanel(); });
+$('songForm').addEventListener('submit', handleSubmit);
+$('searchInput').addEventListener('input', (e) => { searchTerm = e.target.value; render(); });
+$('vClose').addEventListener('click', closeViewer);
+$('viewer').addEventListener('click', (e) => { if (e.target.id === 'viewer') closeViewer(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeViewer(); });
 
-document.getElementById('settingsBtn').addEventListener('click', () => {
-  document.getElementById('scriptUrlInput').value = getScriptUrl();
-  document.getElementById('settingsOverlay').classList.remove('hidden');
+$('settingsBtn').addEventListener('click', () => {
+  $('scriptUrlInput').value = getScriptUrl();
+  $('settingsOverlay').classList.remove('hidden');
 });
-document.getElementById('settingsCancelBtn').addEventListener('click', () => {
-  document.getElementById('settingsOverlay').classList.add('hidden');
-});
-document.getElementById('settingsOverlay').addEventListener('click', (e) => {
-  if (e.target.id === 'settingsOverlay') document.getElementById('settingsOverlay').classList.add('hidden');
-});
-document.getElementById('settingsForm').addEventListener('submit', (e) => {
+$('settingsCancelBtn').addEventListener('click', () => $('settingsOverlay').classList.add('hidden'));
+$('settingsOverlay').addEventListener('click', (e) => { if (e.target.id === 'settingsOverlay') $('settingsOverlay').classList.add('hidden'); });
+$('settingsForm').addEventListener('submit', (e) => {
   e.preventDefault();
-  const url = document.getElementById('scriptUrlInput').value.trim();
+  const url = $('scriptUrlInput').value.trim();
   if (url){
     setScriptUrl(url);
-    document.getElementById('settingsOverlay').classList.add('hidden');
+    $('settingsOverlay').classList.add('hidden');
     showToast('Connected — reloading songs');
     loadEntries();
   }
